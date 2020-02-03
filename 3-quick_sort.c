@@ -1,7 +1,7 @@
 #include "sort.h"
 
 int partition(int *array, int left, int right, size_t size);
-void swap_int(int *a, int *b);
+void swap_int(int *a, int *b, int *array, size_t size);
 void quicksort(int *array, int left, int right, size_t size);
 
 void quick_sort(int *array, size_t size)
@@ -26,17 +26,15 @@ int partition(int *array, int left, int right, size_t size)
     int pivot = array[right];
     int i = left, j;
 
-    for (j = left; j <= right; j++)
+    for (j = left; j < right; j++)
     {
         if (array[j] < pivot)
         {
-            swap_int(&array[i], &array[j]);
-            print_array(array, size);
+            swap_int(&array[i], &array[j], array, size);
             i++;
         }
     }
-    swap_int(&array[i], &array[right]);
-
+    swap_int(&array[i], &array[right], array, size);
     return (i);
 }
 
@@ -46,11 +44,16 @@ int partition(int *array, int left, int right, size_t size)
  * @a: Pointer of integer variable
  * @b: Pointer of integer variable
  */
-void swap_int(int *a, int *b)
+void swap_int(int *a, int *b, int *array, size_t size)
 {
     int temp;
+
+    if (*a == *b)
+        return;
 
     temp = *a;
     *a = *b;
     *b = temp;
+
+    print_array(array, size);
 }
