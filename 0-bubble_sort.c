@@ -16,23 +16,29 @@ void swap_int(int *a, int *b)
 }
 
 /**
- * bubble_sort - Implementation of the Buble sort algorithm
+ * bubble_sort - Implementation of the Bubble sort algorithm
  * @array: unordered array of integers
  * @size: size of the array given
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, j;
+	size_t n = size, j, newn = 1;
 
-	for (i = 0; i < size; i++)
+	if (array == NULL || size < 2)
+		return;
+
+	while (newn >= 1)
 	{
-		for (j = size - 1; j > 0; j--)
+		newn = 0;
+		for (j = 1; j < n; j++)
 		{
-			if (array[j] < array[j - 1])
+			if (array[j - 1] > array[j])
 			{
-				swap_int(&array[j], &array[j - 1]);
+				swap_int(&array[j - 1], &array[j]);
 				print_array(array, size);
+				newn = j;
 			}
 		}
+		n = newn;
 	}
 }
