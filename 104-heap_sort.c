@@ -22,7 +22,8 @@ void heap_sort(int *array, size_t size)
 
 	for (i = size - 1; i >= 0; i--)
 	{
-		swap_int(&array[0], &array[i], array, size);
+		if (i != 0)
+			swap_int(&array[0], &array[i], array, size);
 		buildMaxHeap(array, i, 0, fixedSize);
 	}
 }
