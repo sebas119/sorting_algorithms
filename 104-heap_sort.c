@@ -14,7 +14,7 @@ void heap_sort(int *array, size_t size)
 	int i;
 	int fixedSize = size;
 
-	if (array == NULL)
+	if (array == NULL || size < 2)
 		return;
 
 	for (i = (size / 2) - 1; i >= 0; i--)
