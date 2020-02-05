@@ -12,18 +12,17 @@ void buildMaxHeap(int *array, size_t sizeHeap, size_t i, size_t fixedSize);
 void heap_sort(int *array, size_t size)
 {
 	int i;
-	const size_t fixedSize = size;
+	int fixedSize = size;
 
 	if (array == NULL)
 		return;
 
-	for (i = size / 2 - 1; i >= 0; i--)
+	for (i = (size / 2) - 1; i >= 0; i--)
 		buildMaxHeap(array, size, i, fixedSize);
 
 	for (i = size - 1; i >= 0; i--)
 	{
-		if (i != 0)
-			swap_int(&array[0], &array[i], array, size);
+		swap_int(&array[0], &array[i], array, size);
 		buildMaxHeap(array, i, 0, fixedSize);
 	}
 }
@@ -39,8 +38,8 @@ void heap_sort(int *array, size_t size)
 void buildMaxHeap(int *array, size_t sizeHeap, size_t i, size_t fixedSize)
 {
 	size_t largest = i;
-	size_t left = 2 * i + 1;
-	size_t right = 2 * i + 2;
+	size_t left = (2 * i) + 1;
+	size_t right = (2 * i) + 2;
 
 	if (left < sizeHeap && array[left] > array[largest])
 		largest = left;
