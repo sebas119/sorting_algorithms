@@ -1,39 +1,54 @@
 #include "sort.h"
 
-void swap_int(int *a, int *b);
-void buildMaxHeap(int *array, size_t size, size_t i);
+void swap_int(int *a, int *b, int *array, size_t size);
+void buildMaxHeap(int *array, size_t sizeHeap, size_t i, size_t fixedSize);
 
+
+/**
+ * heap_sort - Implementation of the Heap Sort algorithm
+ * @array: Array of integers
+ * @size: size of the array
+ */
 void heap_sort(int *array, size_t size)
 {
-    int i;
+	int i;
+	const size_t fixedSize = size;
 
-    for (i = size / 2 - 1; i >= 0; i--)
-        buildMaxHeap(array, size, i);
+	for (i = size / 2 - 1; i >= 0; i--)
+		buildMaxHeap(array, size, i, fixedSize);
 
-    for (i = size - 1; i >= 0; i--)
-    {
-        swap_int(&array[0], &array[i]);
-        buildMaxHeap(array, i, 0);
-    }
+	for (i = size - 1; i >= 0; i--)
+	{
+		swap_int(&array[0], &array[i], array, size);
+		buildMaxHeap(array, i, 0, fixedSize);
+	}
 }
 
-void buildMaxHeap(int *array, size_t size, size_t i)
+/**
+ * buildMaxHeap - Build a max heap from an array
+ *
+ * @array: Array of integers
+ * @sizeHeap: Size of the heap
+ * @i: Index of the root of subtree
+ * @fixedSize: Size fixed of the array
+ */
+void buildMaxHeap(int *array, size_t sizeHeap, size_t i, size_t fixedSize)
 {
-    size_t largest = i;
-    size_t left = 2 * i + 1;
-    size_t right = 2 * i + 2;
+	size_t largest = i;
+	size_t left = 2 * i + 1;
+	size_t right = 2 * i + 2;
 
-    if (left < size && array[left] > array[largest])
-        largest = left;
+	if (left < sizeHeap && array[left] > array[largest])
+		largest = left;
 
-    if (right < size && array[right] > array[largest])
-        largest = right;
+	if (right < sizeHeap && array[right] > array[largest])
+		largest = right;
 
-    if (largest != i)
-    {
-        swap_int(&array[i], &array[largest]);
-        buildMaxHeap(array, size, largest);
-    }
+	if (largest != i)
+	{
+		swap_int(&array[i], &array[largest], array, fixedSize);
+		buildMaxHeap(array, sizeHeap, largest, fixedSize);
+	}
 }
 
 /**
@@ -41,12 +56,19 @@ void buildMaxHeap(int *array, size_t size, size_t i)
  *
  * @a: Pointer of integer variable
  * @b: Pointer of integer variable
+ * @array: Array of integers
+ * @size: size of the array
  */
-void swap_int(int *a, int *b)
+void swap_int(int *a, int *b, int *array, size_t size)
 {
-    int temp;
+	int temp;
 
-    temp = *a;
-    *a = *b;
-    *b = temp;
+	if (*a == *b)
+		return;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+
+	print_array(array, size);
 }
