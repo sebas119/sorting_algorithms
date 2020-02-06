@@ -3,7 +3,6 @@
 void swap_int(int *a, int *b, int *array, size_t size);
 void buildMaxHeap(int *array, size_t sizeHeap, size_t i, size_t fixedSize);
 
-
 /**
  * heap_sort - Implementation of the Heap Sort algorithm
  * @array: Array of integers
@@ -20,7 +19,7 @@ void heap_sort(int *array, size_t size)
 	for (i = (size / 2) - 1; i >= 0; i--)
 		buildMaxHeap(array, size, i, fixedSize);
 
-	for (i = size - 1; i >= 0; i--)
+	for (i = size - 1; i > 0; i--)
 	{
 		swap_int(&array[0], &array[i], array, size);
 		buildMaxHeap(array, i, 0, fixedSize);
@@ -66,8 +65,10 @@ void swap_int(int *a, int *b, int *array, size_t size)
 {
 	int temp;
 
-	if (*a == *b)
-		return;
+	/**
+	* if (*a == *b)
+	*	return;
+	*/
 
 	temp = *a;
 	*a = *b;
